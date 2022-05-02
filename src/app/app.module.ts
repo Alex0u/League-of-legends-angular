@@ -8,6 +8,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
+import { AgGridModule } from 'ag-grid-angular';
 
 // Components
 import { HomeComponent } from './components/home/home.component';
@@ -22,6 +23,7 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { DataService } from './services/data.service';
 import { AppBarComponent } from './components/app-bar/app-bar.component';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { ChampionsDataGridComponent } from './components/champions-data-grid/champions-data-grid.component';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -32,7 +34,8 @@ export function HttpLoaderFactory(http: HttpClient) {
   declarations: [
     AppComponent,
     HomeComponent,
-    AppBarComponent
+    AppBarComponent,
+    ChampionsDataGridComponent
   ],
   imports: [
     BrowserModule,
@@ -42,6 +45,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     HttpClientInMemoryWebApiModule.forRoot(DataService, { dataEncapsulation: false, passThruUnknownUrl: true }),
     HttpClientModule,
     MatToolbarModule,
+    AgGridModule,
     MatIconModule,
     MatButtonModule,
     MatMenuModule,

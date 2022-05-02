@@ -3,3 +3,12 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.actions {
+  display: flex;
+  justify-content: space-between;
+}
+
+div[col-id='actions'] {
+    display: list-item;
+}

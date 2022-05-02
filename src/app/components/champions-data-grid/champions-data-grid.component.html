@@ -1,0 +1,12 @@
+<ag-grid-angular
+    style="width: 100%; height: 90vh;"
+    class="ag-theme-material"
+    [rowData]="champions"
+    [columnDefs]="columnDefs"
+    (gridReady)="onGridReady($event)"
+    [pagination]="true"
+    [paginationAutoPageSize]="true"
+    [enableCellChangeFlash]="true"
+    [animateRows]="true"
+>
+</ag-grid-angular>

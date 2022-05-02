@@ -7,6 +7,13 @@
   "ROUTES": {
     "HOME": "Accueil"
   },
+  "TABLE_TITLE": {
+    "NAME": "Nom",
+    "KEY": "Clé",
+    "TITLE": "Titre",
+    "TAGS": "Mot-clés",
+    "ACTIONS": "Actions"
+  },
   "GLOBAL": {
     "CURR_LANG": "Français"
   }
