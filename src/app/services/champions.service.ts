@@ -91,7 +91,7 @@ export class ChampionsService {
    * 
    * @returns {(error: any) => Observable<T>} An Observable of the response as a JSON object.
    */
-  private handleError<T>(operation = 'operation', result?: T): (error: HttpErrorResponse) => Observable<T> {
+  private handleError<T>(operation: string = 'operation', result?: T): (error: HttpErrorResponse) => Observable<T> {
     return (error: HttpErrorResponse): Observable<T> => {
       console.log(`${operation} failed: ${error.message}`);
       return of(result as T);
