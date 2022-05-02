@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {MatSnackBar} from '@angular/material/snack-bar';
 import { TranslateService } from '@ngx-translate/core';
 import { AsyncTransactionsFlushed, ColDef, GridApi, GridReadyEvent, RowDataTransaction } from 'ag-grid-community';
 import { ChampionsService } from 'src/app/services/champions.service';
@@ -59,6 +60,7 @@ export class ChampionsDataGridComponent implements OnInit {
   constructor(
     private _championService: ChampionsService,
     public translation: TranslateService,
+    private _snackBar: MatSnackBar,
   ) { }
 
   ngOnInit(): void {
@@ -92,8 +94,17 @@ export class ChampionsDataGridComponent implements OnInit {
 
   delete(champion: IChampion) {
     try {
-       this._championService.deleteChampion(champion.id).subscribe(() => {});
+      this._championService.deleteChampion(champion.id).subscribe(() => {
+        this._snackBar.open(
+          'Deletion success', 'Dismiss',
+          { duration: 5000 },
+        );
+      });
     } catch (error: any) {
+      this._snackBar.open(
+        'An error occured while trying to delete', 'Dismiss',
+        { duration: 5000, panelClass: ['mat-toolbar', 'mat-warn'],}
+      );
       console.log(error);
     }
   }

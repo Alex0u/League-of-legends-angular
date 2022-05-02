@@ -9,6 +9,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
 import { AgGridModule } from 'ag-grid-angular';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 // Components
 import { HomeComponent } from './components/home/home.component';
@@ -57,6 +58,7 @@ export function HttpLoaderFactory(http: HttpClient) {
       },
       defaultLanguage: 'en',
     }),
+    MatSnackBarModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
