@@ -21,7 +21,7 @@ export class ChampionsService {
   /**
    * @description This function fetches all champions.
    * 
-   * @returns {Observable<IChampion[]>} an observable containing fetched champions
+   * @returns {Observable<IChampion[]>} an observable containing fetched champions.
    */
   getChampions(): Observable<IChampion[]> {
     return this.http.get<IChampion[]>(this.championsUrl).pipe(
@@ -34,7 +34,7 @@ export class ChampionsService {
    * 
    * @param {number} id The id of the champion.
    * 
-   * @returns {Observable<IChampion>} An observable containing the fetched champion
+   * @returns {Observable<IChampion>} An observable containing the fetched champion.
    */
   getChampion(id: number): Observable<IChampion> {
     const url = `${this.championsUrl}/${id}`;
@@ -48,7 +48,7 @@ export class ChampionsService {
    * 
    * @param {number} id The id of the champion.
    * 
-   * @returns {Observable<IChampion>} An observable containing the deleted champion
+   * @returns {Observable<IChampion>} An observable containing the deleted champion.
    */
   deleteChampion(id: number): Observable<IChampion> {
     const url = `${this.championsUrl}/${id}`;
@@ -62,7 +62,7 @@ export class ChampionsService {
    * 
    * @param {IChampion} champion The champion to add.
    * 
-   * @returns {Observable<IChampion>} An observable containing the added champion
+   * @returns {Observable<IChampion>} An observable containing the added champion.
    */
   addChampion(champion: IChampion): Observable<IChampion> {
     return this.http.post<IChampion>(this.championsUrl, champion, this.httpOptions).pipe(
@@ -75,7 +75,7 @@ export class ChampionsService {
    * 
    * @param {IChampion} champion The champion to update.
    * 
-   * @returns {Observable<any>} An Observable of the response as a JSON object
+   * @returns {Observable<any>} An Observable of the response as a JSON object.
    */
   updateChampion(champion: IChampion): Observable<any> {
     return this.http.put(this.championsUrl, champion, this.httpOptions).pipe(
@@ -86,7 +86,10 @@ export class ChampionsService {
   /**
    * @description This function allows to handle errors.
    * 
-   * @returns {(error: any) => Observable<T>} An Observable of the response as a JSON object
+   * @param {string} operation The operation which has lead to the error.
+   * @param {T} result The result of the operation.
+   * 
+   * @returns {(error: any) => Observable<T>} An Observable of the response as a JSON object.
    */
   private handleError<T>(operation = 'operation', result?: T): (error: HttpErrorResponse) => Observable<T> {
     return (error: HttpErrorResponse): Observable<T> => {
