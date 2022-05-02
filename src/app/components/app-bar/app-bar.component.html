@@ -1,0 +1,14 @@
+<mat-toolbar class="app-bar">
+  <span class="customized-color title">League of Legends</span>
+  <div>
+    <h1 class="route-display customized-color">
+      <mat-icon>home</mat-icon>
+      Home
+    </h1>
+  </div>
+  <button class="customized-color" mat-button [matMenuTriggerFor]="langMenu">English</button>
+  <mat-menu #langMenu="matMenu">
+    <button mat-menu-item *ngIf="currLang === 'en';">French</button>
+    <button mat-menu-item *ngIf="currLang === 'fr';">English</button>
+  </mat-menu>
+</mat-toolbar>
