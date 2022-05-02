@@ -1,0 +1,13 @@
+{
+  "APPBAR": {
+    "TITLE": "League of Legends",
+    "FRENCH": "French",
+    "ENGLISH": "English"
+  },
+  "ROUTES": {
+    "HOME": "Home"
+  },
+  "GLOBAL": {
+    "CURR_LANG": "English"
+  }
+}

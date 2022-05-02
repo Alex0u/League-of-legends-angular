@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-bar',
@@ -6,9 +7,19 @@ import { Component } from '@angular/core';
   styleUrls: ['./app-bar.component.css']
 })
 export class AppBarComponent {
+  currLang: string;
 
-  currLang: string = 'en';
+  constructor(public translate: TranslateService) {
+    translate.addLangs(['en', 'fr']);
+    translate.setDefaultLang('en');
 
-  constructor() { }
+    const browserLang = translate.getBrowserLang() ?? 'en';
+    translate.use(browserLang.match(/en|fr/) ? browserLang : 'en');
+    this.currLang = this.translate.currentLang;
+  }
 
+  changeLanguage(lang: string): void {
+    this.translate.use(lang);
+    this.currLang = this.translate.currentLang;
+  }
 }

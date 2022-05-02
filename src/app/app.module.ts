@@ -15,11 +15,18 @@ import { AppComponent } from './app.component';
 
 // HTTP
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 // Services
 import { DataService } from './services/data.service';
 import { AppBarComponent } from './components/app-bar/app-bar.component';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+
+// AoT requires an exported function for factories
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http);
+}
 
 @NgModule({
   declarations: [
@@ -32,12 +39,20 @@ import { AppBarComponent } from './components/app-bar/app-bar.component';
     AppRoutingModule,
     BrowserAnimationsModule,
     // Avoid creating multiple instances of ChampionService by passing it into forRoot
-    HttpClientInMemoryWebApiModule.forRoot(DataService, { dataEncapsulation: false }),
+    HttpClientInMemoryWebApiModule.forRoot(DataService, { dataEncapsulation: false, passThruUnknownUrl: true }),
     HttpClientModule,
     MatToolbarModule,
     MatIconModule,
     MatButtonModule,
-    MatMenuModule
+    MatMenuModule,
+    TranslateModule.forRoot({
+      loader: {
+          provide: TranslateLoader,
+          useFactory: HttpLoaderFactory,
+          deps: [HttpClient]
+      },
+      defaultLanguage: 'en',
+    }),
   ],
   providers: [],
   bootstrap: [AppComponent]
