@@ -6,7 +6,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 .actions {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
 }
 
 div[col-id='actions'] {

@@ -15,6 +15,21 @@
     "ACTIONS": "Actions"
   },
   "GLOBAL": {
-    "CURR_LANG": "English"
+    "CURR_LANG": "English",
+    "USER_ACTIONS": {
+      "DELETE": "Delete",
+      "ADD": "Add",
+      "EDIT": "Edit",
+      "DELETION": "Deletion",
+      "CANCEL": "Cancel",
+      "DISMISS": "Dismiss"
+    },
+    "RES_STATUS": {
+      "SUCCESS": {
+        "DELETION": "Deletion success",
+        "ADD": "Addition success"
+      },
+      "FAILED": "An error occured for this request"
+    }
   }
 }

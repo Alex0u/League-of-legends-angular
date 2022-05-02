@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import { TranslateService } from '@ngx-translate/core';
 import { AsyncTransactionsFlushed, ColDef, GridApi, GridReadyEvent, RowDataTransaction } from 'ag-grid-community';
+import {Observable} from 'rxjs';
 import { ChampionsService } from 'src/app/services/champions.service';
 import { IChampion } from 'src/app/utils/interface';
 
@@ -10,66 +11,63 @@ import { IChampion } from 'src/app/utils/interface';
   templateUrl: './champions-data-grid.component.html',
   styleUrls: ['./champions-data-grid.component.css']
 })
-export class ChampionsDataGridComponent implements OnInit {
-  champions: IChampion[] = [];
+export class ChampionsDataGridComponent {
+  champions$: Observable<IChampion[]>;
   gridApi: any;
 
-  columnDefs: ColDef[] = [
-    { 
-      field: 'name',
-      sortable: true,
-      filter: true,
-      resizable: true,
-      flex: 1,
-    },
-    { field: 'key', filter: true, resizable: true, flex: 1,  },
-    { field: 'title', sortable: true, filter: true, resizable: true, flex: 1 },
-    { field: 'tags', filter: true, resizable: true },
-    { 
-      field: 'actions',
-      resizable: false,
-      pinned: 'right',
-      cellRenderer: function(params: any) {
-        const currChampion: IChampion = params.data;
-        const div: HTMLDivElement = document.createElement('div');
-        const updateButton: HTMLButtonElement = document.createElement('button');
-        const deleteButton: HTMLButtonElement = document.createElement('button');
-
-        div.classList.add('actions');
-        
-        updateButton.innerHTML = `update`;
-        updateButton.classList.add('mat-stroked-button');
-        updateButton.setAttribute('color', 'primary');
-        updateButton.setAttribute('aria-label', 'update button');
-
-        deleteButton.innerHTML = `delete`;
-        deleteButton.classList.add('mat-stroked-button');
-        deleteButton.setAttribute('color', 'warn');
-        deleteButton.setAttribute('aria-label', 'delete button');
-        deleteButton.addEventListener('click', () => {
-          params.api.applyTransactionAsync({ remove: [params.data] });
-        });
-
-        div.appendChild(updateButton);
-        div.appendChild(deleteButton);
-        return div;
-      },
-    },
-  ];
+  columnDefs: ColDef[];
 
   constructor(
     private _championService: ChampionsService,
     public translation: TranslateService,
     private _snackBar: MatSnackBar,
-  ) { }
+  ) { 
+    this.champions$ = this._championService.getChampions();
+    this.columnDefs = [
+      { 
+        field: 'name',
+        sortable: true,
+        filter: true,
+        resizable: true,
+        flex: 1,
+      },
+      { field: 'key', filter: true, resizable: true, flex: 1,  },
+      { field: 'title', sortable: true, filter: true, resizable: true, flex: 1 },
+      { field: 'tags', filter: true, resizable: true },
+      { 
+        field: 'actions',
+        resizable: false,
+        pinned: 'right',
+        width: 250,
+        cellRenderer: function(params: any) {
+          const div: HTMLDivElement = document.createElement('div');
+          const updateButton: HTMLButtonElement = document.createElement('button');
+          const deleteButton: HTMLButtonElement = document.createElement('button');
 
-  ngOnInit(): void {
-    this.getChampions();
-  }
+          div.classList.add('actions');
+          updateButton.classList.add('mat-stroked-button');
+          updateButton.setAttribute('color', 'primary');
+          updateButton.setAttribute('aria-label', 'update button');
+          translation.stream('GLOBAL.USER_ACTIONS.EDIT').subscribe((res) => {
+            updateButton.innerHTML = res;
+          });
 
-  private getChampions(): void {
-    this._championService.getChampions()
-    .subscribe((res) => this.champions = res);
+          deleteButton.classList.add('mat-stroked-button');
+          deleteButton.setAttribute('color', 'warn');
+          deleteButton.setAttribute('aria-label', 'delete button');
+          deleteButton.addEventListener('click', () => {
+            params.api.applyTransactionAsync({ remove: [params.data] });
+          });
+          translation.stream('GLOBAL.USER_ACTIONS.DELETE').subscribe((res) => {
+            deleteButton.innerHTML = res;
+          });
+
+          div.appendChild(updateButton);
+          div.appendChild(deleteButton);
+          return div;
+        },
+      },
+    ];
   }
 
   private update(champion: IChampion): void {
@@ -95,17 +93,20 @@ export class ChampionsDataGridComponent implements OnInit {
   delete(champion: IChampion) {
     try {
       this._championService.deleteChampion(champion.id).subscribe(() => {
-        this._snackBar.open(
-          'Deletion success', 'Dismiss',
-          { duration: 5000 },
-        );
+        this.translation.getTranslation(this.translation.currentLang).subscribe((res)=> {
+          this._snackBar.open(
+            res.GLOBAL.RES_STATUS.SUCCESS.DELETION, res.GLOBAL.USER_ACTIONS.DISMISS,
+            { duration: 5000 },
+          );
+        });
       });
     } catch (error: any) {
-      this._snackBar.open(
-        'An error occured while trying to delete', 'Dismiss',
-        { duration: 5000, panelClass: ['mat-toolbar', 'mat-warn'],}
-      );
-      console.log(error);
+      this.translation.getTranslation(this.translation.currentLang).subscribe((res)=> {
+        this._snackBar.open(
+          res.GLOBAL.RES_STATUS.FAILED, res.GLOBAL.USER_ACTIONS.DISMISS,
+          { duration: 5000, panelClass: ['mat-toolbar', 'mat-warn'],}
+        );
+      });
     }
   }
 
