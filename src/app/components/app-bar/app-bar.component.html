@@ -1,0 +1,14 @@
+<mat-toolbar class="app-bar">
+  <span class="customized-color title">League of Legends</span>
+  <div>
+    <h1 class="route-display customized-color">
+      <mat-icon>home</mat-icon>
+      {{ 'ROUTES.HOME' | translate }}
+    </h1>
+  </div>
+  <button class="customized-color" mat-button [matMenuTriggerFor]="langMenu" i18n="{i18n_metadata}">{{ 'GLOBAL.CURR_LANG' | translate }}</button>
+  <mat-menu #langMenu="matMenu">
+    <button mat-menu-item *ngIf="currLang === 'en';" (click)="changeLanguage('fr')" i18n="{i18n_metadata}">{{ 'APPBAR.FRENCH' | translate }}</button>
+    <button mat-menu-item *ngIf="currLang === 'fr';" (click)="changeLanguage('en')" i18n="{i18n_metadata}">{{ 'APPBAR.ENGLISH' | translate }}</button>
+  </mat-menu>
+</mat-toolbar>
