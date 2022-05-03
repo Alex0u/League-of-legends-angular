@@ -1,0 +1,8 @@
+<span *ngIf="colors.length !== 0; else noValue">
+  <mat-chip-list>
+      <mat-chip *ngFor="let color of colors; let indexValue=index" color="{{ color }}" selected>{{ params.value[indexValue] }}</mat-chip>
+  </mat-chip-list>
+</span>
+<ng-template #noValue>
+  -
+</ng-template>

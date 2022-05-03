@@ -9,8 +9,8 @@
             <mat-icon>keyboard_arrow_down</mat-icon>
         </button>
         <mat-menu #urlMenu="matMenu">
-            <button mat-menu-item *ngIf="!checked" (click)="switchURL()"><mat-icon>folder_open</mat-icon>&nbsp;champions/</button>
-            <button mat-menu-item *ngIf="checked" (click)="switchURL()"><mat-icon>folder_open</mat-icon>&nbsp;championsV2/</button>
+            <button mat-menu-item *ngIf="checked" (click)="switchURL()"><mat-icon>folder_open</mat-icon>&nbsp;champions/</button>
+            <button mat-menu-item *ngIf="!checked" (click)="switchURL()"><mat-icon>folder_open</mat-icon>&nbsp;championsV2/</button>
         </mat-menu>
     </div>
     <ag-grid-angular
@@ -22,6 +22,7 @@
         [pagination]="true"
         [paginationAutoPageSize]="true"
         [enableCellChangeFlash]="true"
+        (paginationChanged)="autoSize()"
     >
     </ag-grid-angular>
 </div>

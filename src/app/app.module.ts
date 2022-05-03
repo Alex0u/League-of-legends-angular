@@ -13,7 +13,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTableModule } from '@angular/material/table';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { MatTreeModule } from '@angular/material/tree';
+import { MatChipsModule } from '@angular/material/chips';
 
 // Components
 import { HomeComponent } from './components/home/home.component';
@@ -30,6 +30,7 @@ import { AppBarComponent } from './components/app-bar/app-bar.component';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { ChampionsDataGridComponent } from './components/champions-data-grid/champions-data-grid.component';
 import { DeletionDialogComponent } from './components/deletion-dialog/deletion-dialog.component';
+import { ChipsCellRendererComponent } from './components/chips-cell-renderer/chips-cell-renderer.component';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -42,7 +43,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     HomeComponent,
     AppBarComponent,
     ChampionsDataGridComponent,
-    DeletionDialogComponent
+    DeletionDialogComponent,
+    ChipsCellRendererComponent
   ],
   imports: [
     BrowserModule,
@@ -68,7 +70,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     MatTableModule,
     MatDialogModule,
     MatSlideToggleModule,
-    MatTreeModule,
+    MatChipsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

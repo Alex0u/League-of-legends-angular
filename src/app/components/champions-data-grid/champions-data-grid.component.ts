@@ -6,6 +6,7 @@ import { AsyncTransactionsFlushed, ColDef, GridApi, GridReadyEvent, RowDataTrans
 import { Observable } from 'rxjs';
 import { ChampionsService } from 'src/app/services/champions.service';
 import { IChampion } from 'src/app/utils/interface';
+import { ChipsCellRendererComponent } from '../chips-cell-renderer/chips-cell-renderer.component';
 import { DeletionDialogComponent } from '../deletion-dialog/deletion-dialog.component';
 
 @Component({
@@ -16,6 +17,7 @@ import { DeletionDialogComponent } from '../deletion-dialog/deletion-dialog.comp
 export class ChampionsDataGridComponent {
   champions$: Observable<IChampion[]>;
   gridApi: any;
+  columnApi: any;
   columnDefs: ColDef[];
   checked: boolean = false;
   url: string[];
@@ -39,12 +41,16 @@ export class ChampionsDataGridComponent {
       },
       { field: 'key', filter: true, resizable: true, flex: 1,  },
       { field: 'title', sortable: true, filter: true, resizable: true, flex: 1 },
-      { field: 'tags', filter: true, resizable: true },
+      {
+        field: 'tags',
+        filter: true,
+        autoHeight: true,
+        cellRenderer: ChipsCellRendererComponent,
+      },
       { 
         field: 'actions',
         resizable: false,
         pinned: 'right',
-        width: 250,
         cellRenderer: function(params: any) {
           const div: HTMLDivElement = document.createElement('div');
           const updateButton: HTMLButtonElement = document.createElement('button');
@@ -92,6 +98,7 @@ export class ChampionsDataGridComponent {
 
   onGridReady(params: GridReadyEvent): void {
     this.gridApi = params.api;
+    this.columnApi = params.columnApi;
     params.api.addEventListener('asyncTransactionsFlushed', (ev: AsyncTransactionsFlushed) => {
       const row: IChampion[] = [];
       if(ev.results[0].remove && ev.results[0].remove.length === 1) {
@@ -133,5 +140,10 @@ export class ChampionsDataGridComponent {
     this.championService.switchUrl(this.checked);
     this.champions$ = this.championService.getChampions();
     this.url = this.championService.getUrl().split('/');
+  }
+
+  autoSize() {
+    if(this.columnApi)
+      this.columnApi.autoSizeColumns(['tags', 'actions']);
   }
 }
