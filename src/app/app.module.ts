@@ -15,7 +15,6 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatChipsModule } from '@angular/material/chips';
 
 // Other modules
-import { NgxCsvParserModule } from 'ngx-csv-parser';
 import { AgGridModule } from 'ag-grid-angular';
 
 // Components
@@ -74,7 +73,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     MatDialogModule,
     MatSlideToggleModule,
     MatChipsModule,
-    NgxCsvParserModule
   ],
   providers: [],
   bootstrap: [AppComponent]
