@@ -18,11 +18,11 @@ export class ChampionsDataGridComponent {
   columnDefs: ColDef[];
 
   constructor(
-    private _championService: ChampionsService,
+    public championService: ChampionsService,
     public translation: TranslateService,
     private _snackBar: MatSnackBar,
   ) { 
-    this.champions$ = this._championService.getChampions();
+    this.champions$ = this.championService.getChampions();
     this.columnDefs = [
       { 
         field: 'name',
@@ -71,7 +71,7 @@ export class ChampionsDataGridComponent {
   }
 
   private update(champion: IChampion): void {
-    this._championService.updateChampion(champion).subscribe(() => {
+    this.championService.updateChampion(champion).subscribe(() => {
       this.applyTransaction({ update: [champion] });
     });
   }
@@ -85,14 +85,14 @@ export class ChampionsDataGridComponent {
         this.delete(row[0]);
       } else if(ev.results[0].add && ev.results[0].add.length === 1) { 
         ev.results[0].add.forEach((node) => row.push(node.data));
-        this._championService.addChampion(row[0]);
+        this.championService.addChampion(row[0]);
       }
     });
   }
 
   delete(champion: IChampion) {
     try {
-      this._championService.deleteChampion(champion.id).subscribe(() => {
+      this.championService.deleteChampion(champion.id).subscribe(() => {
         this.translation.getTranslation(this.translation.currentLang).subscribe((res)=> {
           this._snackBar.open(
             res.GLOBAL.RES_STATUS.SUCCESS.DELETION, res.GLOBAL.USER_ACTIONS.DISMISS,

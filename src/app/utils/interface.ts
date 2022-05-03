@@ -32,7 +32,7 @@ export interface IChampion {
    * 
    * @type {string[]}
    */
-  tags: string[];
+  tags: string[] | undefined;
 }
 
 export interface ISummonerSpell {

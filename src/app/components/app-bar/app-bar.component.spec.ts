@@ -1,3 +1,4 @@
+import {CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatMenuModule } from '@angular/material/menu';
 import { TranslateTestingModule } from 'ngx-translate-testing';
@@ -32,7 +33,8 @@ describe('AppBarComponent', () => {
           .withTranslations('fr', french)
           .withDefaultLanguage('en'),
           MatMenuModule
-      ]
+      ],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA]
     })
     .compileComponents();
   });
