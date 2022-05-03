@@ -23,13 +23,19 @@ export class ChampionsDataGridComponent {
   url: string[];
 
   constructor(
-    public championService: ChampionsService,
-    public translation: TranslateService,
+    private _championService: ChampionsService,
+    private _translation: TranslateService,
     private _snackBar: MatSnackBar,
     private _matDialog: MatDialog,
   ) {
-    this.champions$ = this.championService.getChampions();
-    this.url = this.championService.getUrl().split('/');
+    this.champions$ = this._championService.getChampions();
+    this.url = this._championService.getUrl().split('/');
+    
+    this._translation.onLangChange.subscribe(async res => {
+      setTimeout(() => {
+        this.autoSize(['actions']);
+      }), 1
+    });
 
     this.columnDefs = [
       { 
@@ -51,6 +57,7 @@ export class ChampionsDataGridComponent {
         field: 'actions',
         resizable: false,
         pinned: 'right',
+        flex: 1,
         cellRenderer: function(params: any) {
           const div: HTMLDivElement = document.createElement('div');
           const updateButton: HTMLButtonElement = document.createElement('button');
@@ -60,7 +67,7 @@ export class ChampionsDataGridComponent {
           updateButton.classList.add('mat-stroked-button');
           updateButton.setAttribute('color', 'primary');
           updateButton.setAttribute('aria-label', 'update button');
-          translation.stream('GLOBAL.USER_ACTIONS.EDIT').subscribe((res) => {
+          _translation.stream('GLOBAL.USER_ACTIONS.EDIT').subscribe((res) => {
             updateButton.innerHTML = res;
           });
 
@@ -78,7 +85,7 @@ export class ChampionsDataGridComponent {
               }
             });
           });
-          translation.stream('GLOBAL.USER_ACTIONS.DELETE').subscribe((res) => {
+          _translation.stream('GLOBAL.USER_ACTIONS.DELETE').subscribe((res) => {
             deleteButton.innerHTML = res;
           });
 
@@ -91,7 +98,7 @@ export class ChampionsDataGridComponent {
   }
 
   private update(champion: IChampion): void {
-    this.championService.updateChampion(champion).subscribe(() => {
+    this._championService.updateChampion(champion).subscribe(() => {
       this.applyTransaction({ update: [champion] });
     });
   }
@@ -106,15 +113,15 @@ export class ChampionsDataGridComponent {
         this.delete(row[0]);
       } else if(ev.results[0].add && ev.results[0].add.length === 1) { 
         ev.results[0].add.forEach((node) => row.push(node.data));
-        this.championService.addChampion(row[0]);
+        this._championService.addChampion(row[0]);
       }
     });
   }
 
   private delete(champion: IChampion) {
     try {
-      this.championService.deleteChampion(champion.id).subscribe(() => {
-        this.translation.getTranslation(this.translation.currentLang).subscribe((res)=> {
+      this._championService.deleteChampion(champion.id).subscribe(() => {
+        this._translation.getTranslation(this._translation.currentLang).subscribe((res)=> {
           this._snackBar.open(
             res.GLOBAL.RES_STATUS.SUCCESS.DELETION, res.GLOBAL.USER_ACTIONS.DISMISS,
             { duration: 5000 },
@@ -122,7 +129,7 @@ export class ChampionsDataGridComponent {
         });
       });
     } catch (error: any) {
-      this.translation.getTranslation(this.translation.currentLang).subscribe((res)=> {
+      this._translation.getTranslation(this._translation.currentLang).subscribe((res)=> {
         this._snackBar.open(
           res.GLOBAL.RES_STATUS.FAILED, res.GLOBAL.USER_ACTIONS.DISMISS,
           { duration: 5000, panelClass: ['mat-toolbar', 'mat-warn'],}
@@ -137,13 +144,14 @@ export class ChampionsDataGridComponent {
 
   switchURL() {
     this.checked = !this.checked;
-    this.championService.switchUrl(this.checked);
-    this.champions$ = this.championService.getChampions();
-    this.url = this.championService.getUrl().split('/');
+    this._championService.switchUrl(this.checked);
+    this.champions$ = this._championService.getChampions();
+    this.url = this._championService.getUrl().split('/');
   }
 
-  autoSize() {
-    if(this.columnApi)
-      this.columnApi.autoSizeColumns(['tags', 'actions']);
+  autoSize(columns: string[]) {
+    if(this.columnApi) {
+      this.columnApi.autoSizeColumns(columns);
+    }
   }
 }

@@ -22,7 +22,7 @@
         [pagination]="true"
         [paginationAutoPageSize]="true"
         [enableCellChangeFlash]="true"
-        (paginationChanged)="autoSize()"
+        (paginationChanged)="autoSize(['tags', 'actions'])"
     >
     </ag-grid-angular>
 </div>
