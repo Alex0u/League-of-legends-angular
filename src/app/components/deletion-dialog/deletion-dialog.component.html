@@ -19,7 +19,11 @@
 
     <ng-container matColumnDef="tags">
       <mat-header-cell *matHeaderCellDef>{{ 'TABLE_TITLE.TAGS' | translate }}</mat-header-cell>
-      <mat-cell *matCellDef="let champion"> {{ champion.tags }} </mat-cell>
+      <mat-cell *matCellDef="let champion">
+        <mat-chip-list>
+          <mat-chip *ngFor="let tag of champion.tags; let indexValue=index" color="primary" selected>{{ tag }}</mat-chip>
+        </mat-chip-list>
+      </mat-cell>
     </ng-container>
 
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
