@@ -8,12 +8,15 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
-import { AgGridModule } from 'ag-grid-angular';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTableModule } from '@angular/material/table';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatChipsModule } from '@angular/material/chips';
+
+// Other modules
+import { NgxCsvParserModule } from 'ngx-csv-parser';
+import { AgGridModule } from 'ag-grid-angular';
 
 // Components
 import { HomeComponent } from './components/home/home.component';
@@ -71,6 +74,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     MatDialogModule,
     MatSlideToggleModule,
     MatChipsModule,
+    NgxCsvParserModule
   ],
   providers: [],
   bootstrap: [AppComponent]
