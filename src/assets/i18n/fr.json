@@ -30,6 +30,7 @@
         "ADD": "Ajout réussi"
       },
       "FAILED": "Un problème est survenu lors de la requête"
-    }
+    },
+    "WARN_DELETION": "Vous êtes sur le point de supprimer la ligne suivante"
   }
 }

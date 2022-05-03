@@ -1,10 +1,12 @@
 import { Component } from '@angular/core';
+import {MatDialog} from '@angular/material/dialog';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import { TranslateService } from '@ngx-translate/core';
 import { AsyncTransactionsFlushed, ColDef, GridApi, GridReadyEvent, RowDataTransaction } from 'ag-grid-community';
 import {Observable} from 'rxjs';
 import { ChampionsService } from 'src/app/services/champions.service';
 import { IChampion } from 'src/app/utils/interface';
+import {DeletionDialogComponent} from '../deletion-dialog/deletion-dialog.component';
 
 @Component({
   selector: 'app-champions-data-grid',
@@ -21,6 +23,7 @@ export class ChampionsDataGridComponent {
     public championService: ChampionsService,
     public translation: TranslateService,
     private _snackBar: MatSnackBar,
+    private _matDialog: MatDialog,
   ) { 
     this.champions$ = this.championService.getChampions();
     this.columnDefs = [
@@ -56,7 +59,15 @@ export class ChampionsDataGridComponent {
           deleteButton.setAttribute('color', 'warn');
           deleteButton.setAttribute('aria-label', 'delete button');
           deleteButton.addEventListener('click', () => {
-            params.api.applyTransactionAsync({ remove: [params.data] });
+            const dialogRef = _matDialog.open(DeletionDialogComponent, {
+              data: params.data,
+              width: '100%',
+            });
+            dialogRef.afterClosed().subscribe(res => {
+              if (res) {
+                params.api.applyTransactionAsync({ remove: [params.data] });
+              }
+            });
           });
           translation.stream('GLOBAL.USER_ACTIONS.DELETE').subscribe((res) => {
             deleteButton.innerHTML = res;

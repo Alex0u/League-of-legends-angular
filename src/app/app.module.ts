@@ -10,6 +10,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
 import { AgGridModule } from 'ag-grid-angular';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatTableModule } from '@angular/material/table';
+import { MatDialogModule } from '@angular/material/dialog';
 
 // Components
 import { HomeComponent } from './components/home/home.component';
@@ -25,6 +27,7 @@ import { DataService } from './services/data.service';
 import { AppBarComponent } from './components/app-bar/app-bar.component';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { ChampionsDataGridComponent } from './components/champions-data-grid/champions-data-grid.component';
+import { DeletionDialogComponent } from './components/deletion-dialog/deletion-dialog.component';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -36,7 +39,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     AppComponent,
     HomeComponent,
     AppBarComponent,
-    ChampionsDataGridComponent
+    ChampionsDataGridComponent,
+    DeletionDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -59,6 +63,8 @@ export function HttpLoaderFactory(http: HttpClient) {
       defaultLanguage: 'en',
     }),
     MatSnackBarModule,
+    MatTableModule,
+    MatDialogModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

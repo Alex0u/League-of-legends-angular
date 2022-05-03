@@ -30,6 +30,7 @@
         "ADD": "Addition success"
       },
       "FAILED": "An error occured for this request"
-    }
+    },
+    "WARN_DELETION": "You are about to delete the following row"
   }
 }
