@@ -25,7 +25,6 @@
     "@ngx-translate/http-loader": "^7.0.0",
     "ag-grid-angular": "^27.2.1",
     "ag-grid-community": "^27.2.1",
-    "ngx-csv-parser": "^1.1.1",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"
