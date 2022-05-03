@@ -1,22 +1,20 @@
-import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { HomeComponent } from './home.component';
+import { ChipsCellRendererComponent } from './chips-cell-renderer.component';
 
-describe('HomeComponent', () => {
-  let component: HomeComponent;
-  let fixture: ComponentFixture<HomeComponent>;
+describe('ChipsCellRendererComponent', () => {
+  let component: ChipsCellRendererComponent;
+  let fixture: ComponentFixture<ChipsCellRendererComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ HomeComponent ],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA]
+      declarations: [ ChipsCellRendererComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(HomeComponent);
+    fixture = TestBed.createComponent(ChipsCellRendererComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -7,7 +7,30 @@
   "ROUTES": {
     "HOME": "Accueil"
   },
+  "TABLE_TITLE": {
+    "NAME": "Nom",
+    "KEY": "Clé",
+    "TITLE": "Titre",
+    "TAGS": "Mot-clés",
+    "ACTIONS": "Actions"
+  },
   "GLOBAL": {
-    "CURR_LANG": "Français"
+    "CURR_LANG": "Français",
+    "USER_ACTIONS": {
+      "DELETE": "Supprimer",
+      "ADD": "Ajouter",
+      "EDIT": "Modifier",
+      "DELETION": "Suppression",
+      "CANCEL": "Annuler",
+      "DISMISS": "Fermer"
+    },
+    "RES_STATUS": {
+      "SUCCESS": {
+        "DELETION": "Suppression réussie",
+        "ADD": "Ajout réussi"
+      },
+      "FAILED": "Un problème est survenu lors de la requête"
+    },
+    "WARN_DELETION": "Vous êtes sur le point de supprimer la ligne suivante"
   }
 }

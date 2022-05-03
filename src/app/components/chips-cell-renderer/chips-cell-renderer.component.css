@@ -1,0 +1,14 @@
+mat-chip[ng-reflect-color='gold'] {
+  color: white;
+  background-color: gold;
+}
+
+mat-chip[ng-reflect-color='lightblue'] {
+  color: white;
+  background-color: lightblue;
+}
+
+mat-chip[ng-reflect-color='brown'] {
+  color: white;
+  background-color: burlywood;
+}

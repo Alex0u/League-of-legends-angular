@@ -3,3 +3,21 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.actions {
+  display: flex;
+  justify-content: space-around;
+}
+
+div[col-id='tags'] {
+  display: flex;
+}
+
+div[col-id='actions'] {
+  display: list-item;
+}
+
+.api-tree, .mat-slide-toggle-content {
+  display: flex;
+  align-items: center;
+}

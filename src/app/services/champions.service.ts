@@ -97,4 +97,12 @@ export class ChampionsService {
       return of(result as T);
     };
   }
+
+  switchUrl(bool: boolean): void {
+    this.championsUrl = bool ? environment.apiChampionsV2 : environment.apiChampions;
+  }
+
+  getUrl(): string {
+    return this.championsUrl;
+  }
 }
