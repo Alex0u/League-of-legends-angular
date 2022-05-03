@@ -16,7 +16,10 @@ export class DeletionDialogComponent {
     public dialogRef: MatDialogRef<DeletionDialogComponent>,
     public translation: TranslateService,
   ) {}
-
+  
+  /**
+   * @description This function close the dialog.
+   */
   onCancelClick(): void {
     this.dialogRef.close();
   }

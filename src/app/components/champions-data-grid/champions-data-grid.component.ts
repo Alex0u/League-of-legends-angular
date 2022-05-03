@@ -96,13 +96,24 @@ export class ChampionsDataGridComponent {
       },
     ];
   }
-
+  
+  /**
+   * @description This method allows to update a champion.
+   * 
+   * @param {IChampion} champion The champion to update.
+   */
   private update(champion: IChampion): void {
     this._championService.updateChampion(champion).subscribe(() => {
       this.applyTransaction({ update: [champion] });
     });
   }
-
+  
+  /**
+   * @description This method allows to initialize parameters when the
+   * onGridReady event is triggered.
+   * 
+   * @param {GridReadyEvent} params The event triggered.
+   */
   onGridReady(params: GridReadyEvent): void {
     this.gridApi = params.api;
     this.columnApi = params.columnApi;
@@ -118,13 +129,18 @@ export class ChampionsDataGridComponent {
     });
   }
 
-  private delete(champion: IChampion) {
+  /**
+   * @description This method allows to delete the given champion.
+   * 
+   * @param {IChampion} champion The champion to be deleted.
+   */
+  private delete(champion: IChampion): void {
     try {
       this._championService.deleteChampion(champion.id).subscribe(() => {
         this._translation.getTranslation(this._translation.currentLang).subscribe((res)=> {
           this._snackBar.open(
             res.GLOBAL.RES_STATUS.SUCCESS.DELETION, res.GLOBAL.USER_ACTIONS.DISMISS,
-            { duration: 5000 },
+            { duration: 5000, panelClass: ['mat-toolbar', 'mat-primary'] },
           );
         });
       });
@@ -138,18 +154,31 @@ export class ChampionsDataGridComponent {
     }
   }
 
+  /**
+   * @description This method allows to resize the given grid columns.
+   * 
+   * @param {RowDataTransaction} transaction The transaction to apply changes to the grid.
+   */
   private applyTransaction(transaction: RowDataTransaction): void {
     (this.gridApi as GridApi).applyTransaction(transaction);
   }
 
-  switchURL() {
+  /**
+   * @description This method allows to switch between 2 API URL.
+   */
+  switchURL(): void {
     this.checked = !this.checked;
     this._championService.switchUrl(this.checked);
     this.champions$ = this._championService.getChampions();
     this.url = this._championService.getUrl().split('/');
   }
 
-  autoSize(columns: string[]) {
+  /**
+   * @description This method allows to resize the given grid columns.
+   * 
+   * @param {string[]} columns The columns names to be resized.
+   */
+  autoSize(columns: string[]): void {
     if(this.columnApi) {
       this.columnApi.autoSizeColumns(columns);
     }

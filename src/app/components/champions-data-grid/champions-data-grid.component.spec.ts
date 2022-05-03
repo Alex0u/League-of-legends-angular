@@ -8,6 +8,8 @@ import { DataService } from 'src/app/services/data.service';
 import { ChampionsDataGridComponent } from './champions-data-grid.component';
 import english from '../../../assets/i18n/en.json';
 import french from '../../../assets/i18n/fr.json';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatMenuModule } from '@angular/material/menu';
 
 describe('ChampionsDataGridComponent', () => {
   let component: ChampionsDataGridComponent;
@@ -24,6 +26,8 @@ describe('ChampionsDataGridComponent', () => {
         .withTranslations('fr', french)
         .withDefaultLanguage('en'),
         MatSnackBarModule,
+        MatDialogModule,
+        MatMenuModule,
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     })
