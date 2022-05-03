@@ -1,11 +1,27 @@
-<ag-grid-angular
-    style="width: 100%; height: 90vh;"
-    class="ag-theme-material"
-    [rowData]="champions$ | async"
-    [columnDefs]="columnDefs"
-    (gridReady)="onGridReady($event)"
-    [pagination]="true"
-    [paginationAutoPageSize]="true"
-    [enableCellChangeFlash]="true"
->
-</ag-grid-angular>
+<div>
+    <div class="api-tree api-url">
+        <mat-icon>folder_open</mat-icon>
+        <button mat-button disabled="true">
+            {{ url[0] }}
+        </button> /
+        <button mat-button [matMenuTriggerFor]="urlMenu">
+            {{ url[1] }}
+            <mat-icon>keyboard_arrow_down</mat-icon>
+        </button>
+        <mat-menu #urlMenu="matMenu">
+            <button mat-menu-item *ngIf="!checked" (click)="switchURL()"><mat-icon>folder_open</mat-icon>&nbsp;champions/</button>
+            <button mat-menu-item *ngIf="checked" (click)="switchURL()"><mat-icon>folder_open</mat-icon>&nbsp;championsV2/</button>
+        </mat-menu>
+    </div>
+    <ag-grid-angular
+        style="width: 100%; height: 80vh;"
+        class="ag-theme-material"
+        [rowData]="champions$ | async"
+        [columnDefs]="columnDefs"
+        (gridReady)="onGridReady($event)"
+        [pagination]="true"
+        [paginationAutoPageSize]="true"
+        [enableCellChangeFlash]="true"
+    >
+    </ag-grid-angular>
+</div>

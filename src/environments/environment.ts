@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   apiChampions: 'api/champions',
-  apiChampions2: 'api/champions2',
+  apiChampionsV2: 'api/championsV2',
   apiSpells: 'api/spells',
 };
 

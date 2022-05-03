@@ -12,6 +12,8 @@ import { AgGridModule } from 'ag-grid-angular';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTableModule } from '@angular/material/table';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatTreeModule } from '@angular/material/tree';
 
 // Components
 import { HomeComponent } from './components/home/home.component';
@@ -65,6 +67,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     MatSnackBarModule,
     MatTableModule,
     MatDialogModule,
+    MatSlideToggleModule,
+    MatTreeModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import {MatDialog} from '@angular/material/dialog';
-import {MatSnackBar} from '@angular/material/snack-bar';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslateService } from '@ngx-translate/core';
 import { AsyncTransactionsFlushed, ColDef, GridApi, GridReadyEvent, RowDataTransaction } from 'ag-grid-community';
-import {Observable} from 'rxjs';
+import { Observable } from 'rxjs';
 import { ChampionsService } from 'src/app/services/champions.service';
 import { IChampion } from 'src/app/utils/interface';
-import {DeletionDialogComponent} from '../deletion-dialog/deletion-dialog.component';
+import { DeletionDialogComponent } from '../deletion-dialog/deletion-dialog.component';
 
 @Component({
   selector: 'app-champions-data-grid',
@@ -16,16 +16,19 @@ import {DeletionDialogComponent} from '../deletion-dialog/deletion-dialog.compon
 export class ChampionsDataGridComponent {
   champions$: Observable<IChampion[]>;
   gridApi: any;
-
   columnDefs: ColDef[];
+  checked: boolean = false;
+  url: string[];
 
   constructor(
     public championService: ChampionsService,
     public translation: TranslateService,
     private _snackBar: MatSnackBar,
     private _matDialog: MatDialog,
-  ) { 
+  ) {
     this.champions$ = this.championService.getChampions();
+    this.url = this.championService.getUrl().split('/');
+
     this.columnDefs = [
       { 
         field: 'name',
@@ -101,7 +104,7 @@ export class ChampionsDataGridComponent {
     });
   }
 
-  delete(champion: IChampion) {
+  private delete(champion: IChampion) {
     try {
       this.championService.deleteChampion(champion.id).subscribe(() => {
         this.translation.getTranslation(this.translation.currentLang).subscribe((res)=> {
@@ -123,5 +126,12 @@ export class ChampionsDataGridComponent {
 
   private applyTransaction(transaction: RowDataTransaction): void {
     (this.gridApi as GridApi).applyTransaction(transaction);
+  }
+
+  switchURL() {
+    this.checked = !this.checked;
+    this.championService.switchUrl(this.checked);
+    this.champions$ = this.championService.getChampions();
+    this.url = this.championService.getUrl().split('/');
   }
 }

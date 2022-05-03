@@ -12,9 +12,9 @@ export class DataService {
 
   createDb() {
     const champions: IChampion[] = Object.values(firstChampionDataset.data);
-    const champions2: IChampion[] = Object.values(secondChampionDataset.data);
+    const championsV2: IChampion[] = Object.values(secondChampionDataset.data);
     const spells: IChampion[] = Object.values(spellDataset.data);
 
-    return { champions, champions2, spells };
+    return { champions, championsV2, spells };
   }
 }

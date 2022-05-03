@@ -12,3 +12,8 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 div[col-id='actions'] {
     display: list-item;
 }
+
+.api-tree, .mat-slide-toggle-content {
+  display: flex;
+  align-items: center;
+}
