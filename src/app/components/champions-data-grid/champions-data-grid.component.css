@@ -1,9 +1,11 @@
 .api-url {
   justify-content: center;
+  margin-bottom: 10px;
 }
 
 .champions-data-grid {
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-top: 10px;
 }

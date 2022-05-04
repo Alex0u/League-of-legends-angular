@@ -22,13 +22,14 @@
       "ADD": "Ajouter",
       "EDIT": "Modifier",
       "DELETION": "Suppression",
+      "EDITING": "Modification",
       "CANCEL": "Annuler",
       "DISMISS": "Fermer"
     },
     "RES_STATUS": {
       "SUCCESS": {
         "DELETION": "Suppression réussie",
-        "ADD": "Ajout réussi"
+        "EDIT": "Modification réussie"
       },
       "FAILED": "Un problème est survenu lors de la requête"
     },

@@ -13,13 +13,23 @@ import { MatTableModule } from '@angular/material/table';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatChipsModule } from '@angular/material/chips';
+import { MatInputModule } from '@angular/material/input';
 
 // Other modules
 import { AgGridModule } from 'ag-grid-angular';
+import { ReactiveFormsModule } from '@angular/forms';
+
+// Other
+import { DatePipe } from '@angular/common';
 
 // Components
 import { HomeComponent } from './components/home/home.component';
 import { AppComponent } from './app.component';
+import { ButtonsCellRendererComponent } from './components/buttons-cell-renderer/buttons-cell-renderer.component';
+import { EditDialogComponent } from './components/edit-dialog/edit-dialog.component';
+import { ChampionsDataGridComponent } from './components/champions-data-grid/champions-data-grid.component';
+import { DeletionDialogComponent } from './components/deletion-dialog/deletion-dialog.component';
+import { ChipsCellRendererComponent } from './components/chips-cell-renderer/chips-cell-renderer.component';
 
 // HTTP
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
@@ -30,11 +40,7 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { DataService } from './services/data.service';
 import { AppBarComponent } from './components/app-bar/app-bar.component';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { ChampionsDataGridComponent } from './components/champions-data-grid/champions-data-grid.component';
-import { DeletionDialogComponent } from './components/deletion-dialog/deletion-dialog.component';
-import { ChipsCellRendererComponent } from './components/chips-cell-renderer/chips-cell-renderer.component';
-import { DatePipe } from '@angular/common';
-import { ButtonsCellRendererComponent } from './components/buttons-cell-renderer/buttons-cell-renderer.component';
+import {MatFormFieldModule} from '@angular/material/form-field';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -49,7 +55,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     ChampionsDataGridComponent,
     DeletionDialogComponent,
     ChipsCellRendererComponent,
-    ButtonsCellRendererComponent
+    ButtonsCellRendererComponent,
+    EditDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -76,6 +83,9 @@ export function HttpLoaderFactory(http: HttpClient) {
     MatDialogModule,
     MatSlideToggleModule,
     MatChipsModule,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule
   ],
   providers: [DatePipe],
   bootstrap: [AppComponent]

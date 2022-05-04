@@ -47,9 +47,26 @@ export class ChampionsDataGridComponent implements OnDestroy {
    * @param {IChampion} champion The champion to update.
    */
   private update(champion: IChampion): void {
-    this._championService.updateChampion(champion).subscribe(() => {
-      this.applyTransaction({ update: [champion] });
-    });
+    try {
+      const updateSub = this._championService.updateChampion(champion).subscribe(() => {
+        const translationSub = this._translation.getTranslation(this._translation.currentLang).subscribe((res)=> {
+          this._snackBar.open(
+            res.GLOBAL.RES_STATUS.SUCCESS.EDIT, res.GLOBAL.USER_ACTIONS.DISMISS,
+            { duration: 5000, panelClass: ['mat-toolbar', 'mat-primary'] },
+          );
+        });
+        this.subscriptions.push(translationSub);
+      });
+      this.subscriptions.push(updateSub);
+    } catch (error: any) {
+      const translationSub = this._translation.getTranslation(this._translation.currentLang).subscribe((res)=> {
+        this._snackBar.open(
+          res.GLOBAL.RES_STATUS.FAILED, res.GLOBAL.USER_ACTIONS.DISMISS,
+          { duration: 5000, panelClass: ['mat-toolbar', 'mat-warn'],}
+        );
+      });
+      this.subscriptions.push(translationSub);
+    }
   }
   
   /**
@@ -66,9 +83,9 @@ export class ChampionsDataGridComponent implements OnDestroy {
       if(ev.results[0].remove && ev.results[0].remove.length === 1) {
         ev.results[0].remove.forEach((node) => row.push(node.data));
         this.delete(row[0]);
-      } else if(ev.results[0].add && ev.results[0].add.length === 1) { 
-        ev.results[0].add.forEach((node) => row.push(node.data));
-        this._championService.addChampion(row[0]);
+      } else if(ev.results[0].update && ev.results[0].update.length === 1) { 
+        ev.results[0].update.forEach((node) => row.push(node.data));
+        this.update(row[0]);
       }
     });
   }

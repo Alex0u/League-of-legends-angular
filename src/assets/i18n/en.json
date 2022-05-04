@@ -22,13 +22,14 @@
       "ADD": "Add",
       "EDIT": "Edit",
       "DELETION": "Deletion",
+      "EDITING": "Editing",
       "CANCEL": "Cancel",
       "DISMISS": "Dismiss"
     },
     "RES_STATUS": {
       "SUCCESS": {
         "DELETION": "Deletion success",
-        "ADD": "Addition success"
+        "EDIT": "Editing success"
       },
       "FAILED": "An error occured for this request"
     },
