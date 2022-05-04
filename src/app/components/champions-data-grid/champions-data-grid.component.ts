@@ -4,7 +4,6 @@ import { TranslateService } from '@ngx-translate/core';
 import { AsyncTransactionsFlushed, ColDef, GridApi, GridReadyEvent, RowDataTransaction } from 'ag-grid-community';
 import { Observable, Subscription } from 'rxjs';
 import { ChampionsService } from 'src/app/services/champions.service';
-import { GamesService } from 'src/app/services/games.service';
 import { IChampion } from 'src/app/utils/interface';
 import { ButtonsCellRendererComponent } from '../buttons-cell-renderer/buttons-cell-renderer.component';
 import { ChipsCellRendererComponent } from '../chips-cell-renderer/chips-cell-renderer.component';
@@ -27,7 +26,6 @@ export class ChampionsDataGridComponent implements OnDestroy {
     private _championService: ChampionsService,
     private _translation: TranslateService,
     private _snackBar: MatSnackBar,
-    private _gameService: GamesService,
   ) {
     this.switchURL();
     this.columnDefs = [
