@@ -9,11 +9,77 @@
 // Be sure that you only ever include this mixin once!
 @include mat.core();
 
+$primary-palette: (
+    50 : #e3e4e5,
+    100 : #b8bdbe,
+    200 : #899192,
+    300 : #5a6466,
+    400 : #364346,
+    500 : #132225,
+    600 : #111e21,
+    700 : #0e191b,
+    800 : #0b1416,
+    900 : #060c0d,
+    A100 : #52d2ff,
+    A200 : #1fc4ff,
+    A400 : #00adeb,
+    A700 : #009ad1,
+    contrast: (
+        50 : #000000,
+        100 : #000000,
+        200 : #000000,
+        300 : #ffffff,
+        400 : #ffffff,
+        500 : #ffffff,
+        600 : #ffffff,
+        700 : #ffffff,
+        800 : #ffffff,
+        900 : #ffffff,
+        A100 : #000000,
+        A200 : #000000,
+        A400 : #000000,
+        A700 : #ffffff,
+    )
+);
+
+$secondary-palette: (
+    50 : #ecf8f6,
+    100 : #d0eee8,
+    200 : #b1e3d9,
+    300 : #91d8ca,
+    400 : #7acfbe,
+    500 : #62c7b3,
+    600 : #5ac1ac,
+    700 : #50baa3,
+    800 : #46b39a,
+    900 : #34a68b,
+    A100 : #f0fffb,
+    A200 : #bdffee,
+    A400 : #8affe1,
+    A700 : #70ffdb,
+    contrast: (
+        50 : #000000,
+        100 : #000000,
+        200 : #000000,
+        300 : #000000,
+        400 : #000000,
+        500 : #000000,
+        600 : #000000,
+        700 : #000000,
+        800 : #000000,
+        900 : #000000,
+        A100 : #000000,
+        A200 : #000000,
+        A400 : #000000,
+        A700 : #000000,
+    )
+);
+
 // Define the palettes for your theme using the Material Design palettes available in palette.scss
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
 // hue. Available color palettes: https://material.io/design/color/
-$league-of-legends-angular-primary: mat.define-palette(mat.$indigo-palette);
-$league-of-legends-angular-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
+$league-of-legends-angular-primary: mat.define-palette($primary-palette);
+$league-of-legends-angular-accent: mat.define-palette($secondary-palette);
 
 // The warn palette is optional (defaults to red).
 $league-of-legends-angular-warn: mat.define-palette(mat.$red-palette);

@@ -5,7 +5,8 @@
     "ENGLISH": "English"
   },
   "ROUTES": {
-    "HOME": "Home"
+    "HOME": "Home",
+    "GAMES": "Games"
   },
   "TABLE_TITLE": {
     "NAME": "Name",
