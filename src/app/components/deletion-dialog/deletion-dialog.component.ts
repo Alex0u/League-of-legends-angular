@@ -1,5 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { displayedColumns } from 'src/app/utils/constants';
 import { IChampion } from 'src/app/utils/interface';
 
 @Component({
@@ -8,7 +9,7 @@ import { IChampion } from 'src/app/utils/interface';
   styleUrls: ['./deletion-dialog.component.css']
 })
 export class DeletionDialogComponent {
-  displayedColumns: string[] = ['name', 'key', 'title', 'tags'];
+  displayedColumns: string[] = displayedColumns;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: IChampion,
@@ -16,7 +17,8 @@ export class DeletionDialogComponent {
   ) {}
   
   /**
-   * @description This function close the dialog.
+   * @description This function close the dialog without result to
+   * the opener.
    */
   onCancelClick(): void {
     this.dialogRef.close();

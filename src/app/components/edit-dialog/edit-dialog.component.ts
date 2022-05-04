@@ -1,7 +1,8 @@
 import { Component, Inject } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import {MatChipInputEvent} from '@angular/material/chips';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatChipInputEvent } from '@angular/material/chips';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { displayedColumns } from 'src/app/utils/constants';
 import { IChampion } from 'src/app/utils/interface';
 
 @Component({
@@ -10,7 +11,7 @@ import { IChampion } from 'src/app/utils/interface';
   styleUrls: ['./edit-dialog.component.css']
 })
 export class EditDialogComponent {
-  displayedColumns: string[] = ['name', 'key', 'title', 'tags'];
+  displayedColumns: string[] = displayedColumns;
   championForm: FormGroup;
 
   constructor(
@@ -25,10 +26,20 @@ export class EditDialogComponent {
     });
   }
 
+  /**
+   * @description Allows to get the current formArray for tags.
+   * 
+   * @returns {FormArray} The tags's formArray.
+   */
   get tagsControls(): FormArray {
     return this.championForm.controls['tags'] as FormArray;
   }
 
+  /**
+   * @description This method is used to add a tag to the form.
+   * 
+   * @param {MatChipInputEvent} event The mat-input chip-list event.
+   */
   addTag(event: MatChipInputEvent): void {
     const input = event.chipInput?.inputElement;
     const value = event.value;
@@ -37,17 +48,31 @@ export class EditDialogComponent {
     if (input) input.value = "";
   }
 
+  /**
+   * @description This method is used to remove a tag to the form.
+   * 
+   * @param {MatChipInputEvent} event The mat-input chip-list event.
+   */
   removeTag(tag: string): void {
     const index = this.tagsControls.value.indexOf(tag);
     if (index >= 0) this.tagsControls.removeAt(index);
   }
 
+  /**
+   * @description This function close the dialog with form value as
+   * a result sent to the opener.
+   */
   onSubmit() {
-    console.log(this.championForm.value);
+    const champion: IChampion = this.championForm.value;
+    champion.id = this.data.id;
+    champion.key = this.data.key;
+    if(champion.tags?.length === 0) champion.tags = undefined;
+    this.dialogRef.close(champion);
   }
 
   /**
-   * @description This function close the dialog.
+   * @description This function close the dialog without result to
+   * the opener.
    */
   onCancelClick(): void {
     this.dialogRef.close();

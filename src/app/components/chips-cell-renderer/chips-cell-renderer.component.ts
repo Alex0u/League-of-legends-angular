@@ -1,14 +1,6 @@
 import { Component } from '@angular/core';
 import { ICellRendererAngularComp } from 'ag-grid-angular';
-
-const colorCode = new Map<string, string>([
-  ["Tank", "primary"],
-  ["Fighter", "warn"],
-  ["Assassin", "accent"],
-  ["Mage", "lightblue"],
-  ["Support", "gold"],
-  ["Marksman", "brown"]
-]);
+import { colorCode } from 'src/app/utils/constants';
 
 @Component({
   selector: 'app-chips-cell-renderer',

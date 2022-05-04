@@ -5,8 +5,7 @@
     "ENGLISH": "Anglais"
   },
   "ROUTES": {
-    "HOME": "Accueil",
-    "GAMES": "Parties"
+    "HOME": "Accueil"
   },
   "TABLE_TITLE": {
     "NAME": "Nom",
@@ -33,6 +32,7 @@
       },
       "FAILED": "Un problème est survenu lors de la requête"
     },
-    "WARN_DELETION": "Vous êtes sur le point de supprimer la ligne suivante"
+    "WARN_DELETION": "Vous êtes sur le point de supprimer la ligne suivante",
+    "WARN_EDITING": "Vous êtes sur le point de modifier la ligne suivante"
   }
 }

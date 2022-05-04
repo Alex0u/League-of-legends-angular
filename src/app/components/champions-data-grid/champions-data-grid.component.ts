@@ -4,6 +4,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { AsyncTransactionsFlushed, ColDef, GridApi, GridReadyEvent, RowDataTransaction } from 'ag-grid-community';
 import { Observable, Subscription } from 'rxjs';
 import { ChampionsService } from 'src/app/services/champions.service';
+import {displayedColumns} from 'src/app/utils/constants';
 import { IChampion } from 'src/app/utils/interface';
 import { ButtonsCellRendererComponent } from '../buttons-cell-renderer/buttons-cell-renderer.component';
 import { ChipsCellRendererComponent } from '../chips-cell-renderer/chips-cell-renderer.component';
@@ -27,14 +28,14 @@ export class ChampionsDataGridComponent implements OnDestroy {
     private _translation: TranslateService,
     private _snackBar: MatSnackBar,
   ) {
-    this.switchURL();
     this.columnDefs = [
-      { field: 'name', sortable: true, filter: true, resizable: true, flex: 1 },
-      { field: 'key', filter: true, resizable: true, flex: 1 },
-      { field: 'title', sortable: true, filter: true, resizable: true, flex: 1 },
-      { field: 'tags', filter: true, autoHeight: true, cellRenderer: ChipsCellRendererComponent },
+      { field: displayedColumns[0], sortable: true, filter: true, resizable: true, flex: 1 },
+      { field: displayedColumns[1], filter: true, resizable: true, flex: 1 },
+      { field: displayedColumns[2], sortable: true, filter: true, resizable: true, flex: 1 },
+      { field: displayedColumns[3], filter: true, autoHeight: true, cellRenderer: ChipsCellRendererComponent },
       { field: 'actions', resizable: false, pinned: 'right', flex: 1, cellRenderer: ButtonsCellRendererComponent },
     ];
+    this.switchURL();
   }
   
   ngOnDestroy(): void {
@@ -78,6 +79,8 @@ export class ChampionsDataGridComponent implements OnDestroy {
   onGridReady(params: GridReadyEvent): void {
     this.gridApi = params.api;
     this.columnApi = params.columnApi;
+
+    // Getting track of transaction events of the grid in order to update API
     params.api.addEventListener('asyncTransactionsFlushed', (ev: AsyncTransactionsFlushed) => {
       const row: IChampion[] = [];
       if(ev.results[0].remove && ev.results[0].remove.length === 1) {
@@ -92,6 +95,7 @@ export class ChampionsDataGridComponent implements OnDestroy {
 
   /**
    * @description This method allows to delete the given champion.
+   * Also open a new snackbar to inform user in case of success or error.
    * 
    * @param {IChampion} champion The champion to be deleted.
    */
@@ -119,16 +123,7 @@ export class ChampionsDataGridComponent implements OnDestroy {
   }
 
   /**
-   * @description This method allows to resize the given grid columns.
-   * 
-   * @param {RowDataTransaction} transaction The transaction to apply changes to the grid.
-   */
-  private applyTransaction(transaction: RowDataTransaction): void {
-    (this.gridApi as GridApi).applyTransaction(transaction);
-  }
-
-  /**
-   * @description This method allows to switch between 2 API URL.
+   * @description This method allows to switch between 2 API URLs.
    */
   switchURL(): void {
     this.checked = !this.checked;

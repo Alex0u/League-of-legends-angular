@@ -1,50 +1,51 @@
 <h1 mat-dialog-title>{{ 'GLOBAL.USER_ACTIONS.EDITING' | translate }}</h1>
 <form [formGroup]="championForm" (ngSubmit)="onSubmit()">
-    <p>{{ 'GLOBAL.WARN_DELETION' | translate }} :</p>
-    <mat-table [dataSource]="[data]" class="mat-elevation-z0">
-      <ng-container matColumnDef="name">
-        <mat-header-cell *matHeaderCellDef>{{ 'TABLE_TITLE.NAME' | translate }}</mat-header-cell>
-        <mat-cell *matCellDef="let champion">
-          <mat-form-field [formGroup]="championForm">
-            <input matInput id="name" type="text" formControlName="name">
-          </mat-form-field>
-        </mat-cell>
-      </ng-container>
+  <p>{{ 'GLOBAL.WARN_EDITING' | translate }} :</p>
+  <mat-table [dataSource]="[data]" class="mat-elevation-z0">
+    <ng-container matColumnDef="name">
+      <mat-header-cell *matHeaderCellDef>{{ 'TABLE_TITLE.NAME' | translate }}</mat-header-cell>
+      <mat-cell *matCellDef="let champion">
+        <mat-form-field [formGroup]="championForm">
+          <input matInput id="name" type="text" formControlName="name">
+        </mat-form-field>
+      </mat-cell>
+    </ng-container>
 
-      <ng-container matColumnDef="key">
-        <mat-header-cell *matHeaderCellDef>{{ 'TABLE_TITLE.KEY' | translate }}</mat-header-cell>
-        <mat-cell *matCellDef="let champion"> {{ champion.key }} </mat-cell>
-      </ng-container>
+    <ng-container matColumnDef="key">
+      <mat-header-cell *matHeaderCellDef>{{ 'TABLE_TITLE.KEY' | translate }}</mat-header-cell>
+      <mat-cell *matCellDef="let champion"> {{ champion.key }} </mat-cell>
+    </ng-container>
 
-      <ng-container matColumnDef="title">
-        <mat-header-cell *matHeaderCellDef>{{ 'TABLE_TITLE.TITLE' | translate }}</mat-header-cell>
-        <mat-cell *matCellDef="let champion">
-          <mat-form-field>
-            <input matInput id="title" type="text" formControlName="title">
-          </mat-form-field>
-        </mat-cell>
-      </ng-container>
+    <ng-container matColumnDef="title">
+      <mat-header-cell *matHeaderCellDef>{{ 'TABLE_TITLE.TITLE' | translate }}</mat-header-cell>
+      <mat-cell *matCellDef="let champion">
+        <mat-form-field>
+          <input matInput id="title" type="text" formControlName="title">
+        </mat-form-field>
+      </mat-cell>
+    </ng-container>
 
-      <ng-container matColumnDef="tags">
-        <mat-header-cell *matHeaderCellDef>{{ 'TABLE_TITLE.TAGS' | translate }}</mat-header-cell>
-        <mat-cell *matCellDef="let champion">
-          <mat-form-field>
-            <mat-chip-list #chipList formArrayName="tags">
-              <mat-chip *ngFor="let tag of tagsControls.value; let indexValue=index" color="primary" (removed)="removeTag(tag)">
-                {{ tag }}
-                <mat-icon matChipRemove>cancel</mat-icon>
-              </mat-chip>
-              <input matInput [matChipInputFor]="chipList" (matChipInputTokenEnd)="addTag($event)">
-            </mat-chip-list>
-          </mat-form-field>
-        </mat-cell>
-      </ng-container>
+    <ng-container matColumnDef="tags">
+      <mat-header-cell *matHeaderCellDef>{{ 'TABLE_TITLE.TAGS' | translate }}</mat-header-cell>
+      <mat-cell *matCellDef="let champion">
+        <mat-form-field>
+          <mat-chip-list #chipList formArrayName="tags">
+            <mat-chip *ngFor="let tag of tagsControls.value; let indexValue=index" color="primary" (removed)="removeTag(tag)">
+              {{ tag }}
+              <mat-icon matChipRemove>cancel</mat-icon>
+            </mat-chip>
+            <input matInput [matChipInputFor]="chipList" (matChipInputTokenEnd)="addTag($event)">
+          </mat-chip-list>
+        </mat-form-field>
+      </mat-cell>
+    </ng-container>
 
-      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-    </mat-table>
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+
+  <mat-dialog-actions>
+    <button mat-button type="button" (click)="onCancelClick()" cdkFocusInitial>{{ 'GLOBAL.USER_ACTIONS.CANCEL' | translate }}</button>
+    <button mat-button type="submit" [disabled]="!championForm.valid">{{ 'GLOBAL.USER_ACTIONS.EDIT' | translate }}</button>
+  </mat-dialog-actions>
 </form>
-<mat-dialog-actions>
-  <button mat-button (click)="onCancelClick()" cdkFocusInitial>{{ 'GLOBAL.USER_ACTIONS.CANCEL' | translate }}</button>
-  <button type="submit" [disabled]="!championForm.valid" mat-button [mat-dialog-close]="championForm.value">{{ 'GLOBAL.USER_ACTIONS.EDIT' | translate }}</button>
-</mat-dialog-actions>

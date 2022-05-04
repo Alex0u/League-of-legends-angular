@@ -40,7 +40,7 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { DataService } from './services/data.service';
 import { AppBarComponent } from './components/app-bar/app-bar.component';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import {MatFormFieldModule} from '@angular/material/form-field';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {

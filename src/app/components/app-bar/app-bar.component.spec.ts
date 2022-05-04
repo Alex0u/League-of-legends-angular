@@ -1,6 +1,7 @@
 import {CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatMenuModule } from '@angular/material/menu';
+import {RouterTestingModule} from '@angular/router/testing';
 import { TranslateTestingModule } from 'ngx-translate-testing';
 import { AppBarComponent } from './app-bar.component';
 
@@ -32,7 +33,8 @@ describe('AppBarComponent', () => {
           .withTranslations('en', english)
           .withTranslations('fr', french)
           .withDefaultLanguage('en'),
-          MatMenuModule
+        MatMenuModule,
+        RouterTestingModule,
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     })

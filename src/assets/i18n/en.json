@@ -5,8 +5,7 @@
     "ENGLISH": "English"
   },
   "ROUTES": {
-    "HOME": "Home",
-    "GAMES": "Games"
+    "HOME": "Home"
   },
   "TABLE_TITLE": {
     "NAME": "Name",
@@ -33,6 +32,7 @@
       },
       "FAILED": "An error occured for this request"
     },
-    "WARN_DELETION": "You are about to delete the following row"
+    "WARN_DELETION": "You are about to delete the following row",
+    "WARN_EDITING": "You are about to delete the following row"
   }
 }
