@@ -1,102 +1,48 @@
-import { Component } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { Component, OnDestroy } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslateService } from '@ngx-translate/core';
 import { AsyncTransactionsFlushed, ColDef, GridApi, GridReadyEvent, RowDataTransaction } from 'ag-grid-community';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { ChampionsService } from 'src/app/services/champions.service';
+import { GamesService } from 'src/app/services/games.service';
 import { IChampion } from 'src/app/utils/interface';
+import { ButtonsCellRendererComponent } from '../buttons-cell-renderer/buttons-cell-renderer.component';
 import { ChipsCellRendererComponent } from '../chips-cell-renderer/chips-cell-renderer.component';
-import { DeletionDialogComponent } from '../deletion-dialog/deletion-dialog.component';
 
 @Component({
   selector: 'app-champions-data-grid',
   templateUrl: './champions-data-grid.component.html',
   styleUrls: ['./champions-data-grid.component.css']
 })
-export class ChampionsDataGridComponent {
-  champions$: Observable<IChampion[]>;
+export class ChampionsDataGridComponent implements OnDestroy {
+  champions$!: Observable<IChampion[]>;
   gridApi: any;
   columnApi: any;
   columnDefs: ColDef[];
-  checked: boolean = false;
-  url: string[];
+  checked: boolean = true;
+  url!: string[];
+  subscriptions: Subscription[] = [];
 
   constructor(
     private _championService: ChampionsService,
     private _translation: TranslateService,
     private _snackBar: MatSnackBar,
-    private _matDialog: MatDialog,
+    private _gameService: GamesService,
   ) {
-    this.champions$ = this._championService.getChampions();
-    this.url = this._championService.getUrl().split('/');
-    
-    this._translation.onLangChange.subscribe(async res => {
-      setTimeout(() => {
-        this.autoSize(['actions']);
-      }), 1
-    });
-
+    this.switchURL();
     this.columnDefs = [
-      { 
-        field: 'name',
-        sortable: true,
-        filter: true,
-        resizable: true,
-        flex: 1,
-      },
-      { field: 'key', filter: true, resizable: true, flex: 1,  },
+      { field: 'name', sortable: true, filter: true, resizable: true, flex: 1 },
+      { field: 'key', filter: true, resizable: true, flex: 1 },
       { field: 'title', sortable: true, filter: true, resizable: true, flex: 1 },
-      {
-        field: 'tags',
-        filter: true,
-        autoHeight: true,
-        cellRenderer: ChipsCellRendererComponent,
-      },
-      { 
-        field: 'actions',
-        resizable: false,
-        pinned: 'right',
-        flex: 1,
-        cellRenderer: function(params: any) {
-          const div: HTMLDivElement = document.createElement('div');
-          const updateButton: HTMLButtonElement = document.createElement('button');
-          const deleteButton: HTMLButtonElement = document.createElement('button');
-
-          div.classList.add('actions');
-          updateButton.classList.add('mat-stroked-button');
-          updateButton.setAttribute('color', 'primary');
-          updateButton.setAttribute('aria-label', 'update button');
-          _translation.stream('GLOBAL.USER_ACTIONS.EDIT').subscribe((res) => {
-            updateButton.innerHTML = res;
-          });
-
-          deleteButton.classList.add('mat-stroked-button');
-          deleteButton.setAttribute('color', 'warn');
-          deleteButton.setAttribute('aria-label', 'delete button');
-          deleteButton.addEventListener('click', () => {
-            const dialogRef = _matDialog.open(DeletionDialogComponent, {
-              data: params.data,
-              width: '100%',
-            });
-            dialogRef.afterClosed().subscribe(res => {
-              if (res) {
-                params.api.applyTransactionAsync({ remove: [params.data] });
-              }
-            });
-          });
-          _translation.stream('GLOBAL.USER_ACTIONS.DELETE').subscribe((res) => {
-            deleteButton.innerHTML = res;
-          });
-
-          div.appendChild(updateButton);
-          div.appendChild(deleteButton);
-          return div;
-        },
-      },
+      { field: 'tags', filter: true, autoHeight: true, cellRenderer: ChipsCellRendererComponent },
+      { field: 'actions', resizable: false, pinned: 'right', flex: 1, cellRenderer: ButtonsCellRendererComponent },
     ];
   }
   
+  ngOnDestroy(): void {
+    this.subscriptions.forEach(sub => sub.unsubscribe());
+  }
+
   /**
    * @description This method allows to update a champion.
    * 
@@ -136,21 +82,24 @@ export class ChampionsDataGridComponent {
    */
   private delete(champion: IChampion): void {
     try {
-      this._championService.deleteChampion(champion.id).subscribe(() => {
-        this._translation.getTranslation(this._translation.currentLang).subscribe((res)=> {
+      const deleteSub = this._championService.deleteChampion(champion.id).subscribe(() => {
+        const translationSub = this._translation.getTranslation(this._translation.currentLang).subscribe((res)=> {
           this._snackBar.open(
             res.GLOBAL.RES_STATUS.SUCCESS.DELETION, res.GLOBAL.USER_ACTIONS.DISMISS,
             { duration: 5000, panelClass: ['mat-toolbar', 'mat-primary'] },
           );
         });
+        this.subscriptions.push(translationSub);
       });
+      this.subscriptions.push(deleteSub);
     } catch (error: any) {
-      this._translation.getTranslation(this._translation.currentLang).subscribe((res)=> {
+      const translationSub = this._translation.getTranslation(this._translation.currentLang).subscribe((res)=> {
         this._snackBar.open(
           res.GLOBAL.RES_STATUS.FAILED, res.GLOBAL.USER_ACTIONS.DISMISS,
           { duration: 5000, panelClass: ['mat-toolbar', 'mat-warn'],}
         );
       });
+      this.subscriptions.push(translationSub);
     }
   }
 

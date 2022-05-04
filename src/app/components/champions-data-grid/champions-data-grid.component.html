@@ -1,4 +1,4 @@
-<div>
+<div class="champions-data-grid">
     <div class="api-tree api-url">
         <mat-icon>folder_open</mat-icon>
         <button mat-button disabled="true">
@@ -14,7 +14,7 @@
         </mat-menu>
     </div>
     <ag-grid-angular
-        style="width: 100%; height: 80vh;"
+        style="width: 80%; height: 85vh;"
         class="ag-theme-material"
         [rowData]="champions$ | async"
         [columnDefs]="columnDefs"

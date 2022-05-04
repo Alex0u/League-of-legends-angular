@@ -9,14 +9,13 @@ import { IChampion } from '../utils/interface';
   providedIn: 'root'
 })
 export class ChampionsService {
-
-  constructor(private http: HttpClient) { }
-
   private championsUrl = environment.apiChampions;
-
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
+
+  constructor(private http: HttpClient) { }
+
 
   /**
    * @description This function fetches all champions.

@@ -33,6 +33,8 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { ChampionsDataGridComponent } from './components/champions-data-grid/champions-data-grid.component';
 import { DeletionDialogComponent } from './components/deletion-dialog/deletion-dialog.component';
 import { ChipsCellRendererComponent } from './components/chips-cell-renderer/chips-cell-renderer.component';
+import { DatePipe } from '@angular/common';
+import { ButtonsCellRendererComponent } from './components/buttons-cell-renderer/buttons-cell-renderer.component';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -46,13 +48,14 @@ export function HttpLoaderFactory(http: HttpClient) {
     AppBarComponent,
     ChampionsDataGridComponent,
     DeletionDialogComponent,
-    ChipsCellRendererComponent
+    ChipsCellRendererComponent,
+    ButtonsCellRendererComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    // Avoid creating multiple instances of ChampionService by passing it into forRoot
+    // Avoid creating multiple instances of DataService by passing it into forRoot
     HttpClientInMemoryWebApiModule.forRoot(DataService, { dataEncapsulation: false, passThruUnknownUrl: true }),
     HttpClientModule,
     MatToolbarModule,
@@ -74,7 +77,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     MatSlideToggleModule,
     MatChipsModule,
   ],
-  providers: [],
+  providers: [DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

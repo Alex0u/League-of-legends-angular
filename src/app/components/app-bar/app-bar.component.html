@@ -1,10 +1,13 @@
-<mat-toolbar class="app-bar">
+<mat-toolbar class="app-bar" color="primary">
   <span class="customized-color title">League of Legends</span>
   <div>
-    <h1 class="route-display customized-color">
-      <mat-icon>home</mat-icon>
-      {{ 'ROUTES.HOME' | translate }}
-    </h1>
+    <button class="customized-color" mat-button>
+      <span class="route-display customized-color">
+        <mat-icon>home</mat-icon>
+        &nbsp;
+        {{ 'ROUTES.HOME' | translate }}
+      </span>
+    </button>
   </div>
   <button class="customized-color" mat-button [matMenuTriggerFor]="langMenu">{{ 'GLOBAL.CURR_LANG' | translate }}</button>
   <mat-menu #langMenu="matMenu">
